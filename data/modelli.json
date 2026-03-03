@@ -1,0 +1,77 @@
+[
+  {
+    "id": "1",
+    "titolo": "Espressione di una sinusoide",
+    "equazione_testo": "x = cos(2*pi*x1*x2 + phi) (dove phi è in radianti)",
+    "funzione": "cos(2*pi*x1*x2 + phi)",
+
+    "nominali": {
+      "x1": 2,
+      "x2": 1,
+      "phi_deg": 21
+    },
+
+    "sens": {
+      "cx1": "-2*pi*x2*sin(2*pi*x1*x2 + phi)",
+      "cx2": "-2*pi*x1*sin(2*pi*x1*x2 + phi)",
+      "cphi": "-sin(2*pi*x1*x2 + phi)",
+
+      "crx1": "-(2*x1*x2*pi*sin(phi + 2*pi*x1*x2))/cos(phi + 2*pi*x1*x2)",
+      "crx2": "-(2*x1*x2*pi*sin(phi + 2*pi*x1*x2))/cos(phi + 2*pi*x1*x2)",
+      "crphi": "-(phi*sin(phi + 2*pi*x1*x2))/cos(phi + 2*pi*x1*x2)"
+    },
+
+    "unc": {
+      "abs_wcu": [
+        { "Ux1": 0.02, "Ux2": 0.02, "Uphi_deg": 0.63 }
+      ],
+      "abs_std": [
+        { "ux1": 0.012, "ux2": 0.012, "uphi_deg": 0.4 }
+      ],
+      "rel_wcu": [
+        { "Urx1": 0.01, "Urx2": 0.02, "Uphi_deg": 0.63 }
+      ],
+      "rel_std": [
+        { "urx1": 0.006, "urx2": 0.012, "urphi": 0.019 }
+      ]
+    }
+  },
+
+{
+  "id": "2",
+  "titolo": "Distanza ricavata da velocità, tempo e angolo",
+  "equazione_testo": "d = x1*x2 / tan(phi) (dove phi è in radianti)",
+  "funzione": "x1*x2 / tan(phi)",
+
+  "nominali": {
+    "x1": 100,
+    "x2": 25,
+    "phi_deg": 38
+  },
+
+  "sens": {
+    "cx1": "x2/tan(phi)",
+    "cx2": "x1/tan(phi)",
+    "cphi": "-x1*x2/(sin(phi)^2)",
+
+    "crx1": "1",
+    "crx2": "1",
+    "crphi": "-phi/(sin(phi)*cos(phi))"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 1.0, "Ux2": 0.2, "Uphi_deg": 0.5 }
+    ],
+    "abs_std": [
+      { "ux1": 0.5, "ux2": 0.01, "uphi_deg": 0.1 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.01, "Urx2": 0.008, "Uphi_deg": 0.5 }
+    ],
+    "rel_std": [
+      { "urx1": 0.005, "urx2": 0.0004, "urphi": 0.0026 }
+    ]
+  }
+}
+]

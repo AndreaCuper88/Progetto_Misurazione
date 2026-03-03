@@ -1,0 +1,154 @@
+from __future__ import annotations
+
+import argparse
+import json
+import random
+from pathlib import Path
+from typing import Any
+
+from casi import CASES
+
+
+DEFAULT_MODELLI_PATH = Path("../data/modelli.json")
+
+# Spiegazione delle domande (coerente con i CASES)
+DOMANDA_LABELS = {
+    # coefficienti assoluti
+    "cx1": "coefficiente assoluto di sensibilità di x rispetto a x1",
+    "cx2": "coefficiente assoluto di sensibilità di x rispetto a x2",
+    "cphi": "coefficiente assoluto di sensibilità di x rispetto a phi",
+
+    # coefficienti relativi
+    "crx1": "coefficiente relativo di sensibilità di x rispetto a x1",
+    "crx2": "coefficiente relativo di sensibilità di x rispetto a x2",
+    "crphi": "coefficiente relativo di sensibilità di x rispetto a phi",
+
+    # incertezze WCU
+    "Ux": "incertezza di caso peggiore assoluta su x",
+    "Urx": "incertezza di caso peggiore relativa su x",
+
+    # incertezze standard
+    "ux": "incertezza standard assoluta su x",
+    "urx": "incertezza standard relativa su x",
+}
+
+
+def load_modelli(path: Path) -> list[dict[str, Any]]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def pick_model(modelli: list[dict[str, Any]], model_id: str | None, rng: random.Random) -> dict[str, Any]:
+    if model_id is None:
+        return rng.choice(modelli)
+    for m in modelli:
+        if str(m.get("id")) == str(model_id):
+            return m
+    raise ValueError(f"Modello id={model_id} non trovato in {path_str(DEFAULT_MODELLI_PATH)}")
+
+
+def pick_case(case_id: str | None, rng: random.Random) -> tuple[int, dict[str, Any]]:
+    if case_id is None:
+        k = rng.choice(list(CASES.keys()))
+        return int(k), CASES[k]
+    cid = int(case_id)
+    if cid not in CASES:
+        raise ValueError(f"Case id={cid} non trovato in CASES")
+    return cid, CASES[cid]
+
+
+def path_str(p: Path) -> str:
+    return str(p.as_posix())
+
+
+def format_value(v: Any) -> str:
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if isinstance(v, (int, float)):
+        return f"{v:.12g}"
+    return str(v)
+
+
+def render_trace(modello: dict[str, Any], caso_id: int, caso: dict[str, Any]) -> str:
+    titolo = modello.get("titolo", "Esercizio").strip()
+    eq_testo = (modello.get("equazione_testo") or "").strip()
+    funzione = (modello.get("funzione") or "").strip()
+
+    nominali: dict[str, Any] = modello.get("nominali", {})
+    tipo_input = caso["tipo_input"]  # abs_wcu, abs_std, rel_wcu, rel_std
+    domande: list[str] = caso.get("domande", [])
+
+    # incertezze dal blocco unc[tipo_input][0]
+    unc_block = modello.get("unc", {})
+    unc_list = unc_block.get(tipo_input, [])
+    unc: dict[str, Any] = unc_list[0] if unc_list else {}
+
+    n_dom = len(domande)
+
+    out: list[str] = []
+    out.append(f"%% Quesito 1 ({n_dom} domande) - Propagazione dell'incertezza con errori indipendenti - {titolo}")
+    out.append("% Si ha la quantità, misurata indirettamente")
+    out.append("%")
+    if eq_testo:
+        out.append(f"% {eq_testo}")
+    elif funzione:
+        out.append(f"% x = {funzione}")
+    out.append("%")
+    out.append("% Gli errori sulle grandezze di ingresso sono indipendenti.")
+    out.append("%")
+    out.append("% Attenzione: rispondere esattamente a tutte le domande di questo quesito è condizione NECESSARIA per superare la prova scritta.")
+    out.append("")
+    out.append("%==============================")
+    out.append("% Dati (il codice NON VA MAI RIPORTATO NELLA SOLUZIONE)")
+    out.append("clear, clc")
+    out.append("%")
+
+    # Nota su phi: se esiste phi_deg nei nominali, la evidenzio
+    if "phi_deg" in nominali:
+        out.append("% Nota: la funzione usa phi in radianti, ma il dato fornito è phi_deg in gradi.")
+        out.append("%")
+
+    out.append("% cancellare")
+
+    # nominali
+    for k, v in nominali.items():
+        out.append(f"{k} = {format_value(v)};")
+
+    out.append("")
+
+    # incertezze (già presenti nel JSON)
+    for k, v in unc.items():
+        out.append(f"{k} = {format_value(v)};")
+
+    out.append("% /cancellare")
+    out.append("")
+    out.append("%==============================")
+    out.append("% Domande")
+
+    for d in domande:
+        label = DOMANDA_LABELS.get(d, f"risposta richiesta: {d}")
+        out.append(f"% {d} = % {label}")
+
+    return "\n".join(out) + "\n"
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description="Generatore di tracce (solo testo) da modelli.json + casi.py")
+    ap.add_argument("--modelli", type=str, default=str(DEFAULT_MODELLI_PATH), help="Path a modelli.json")
+    ap.add_argument("--model", type=str, default=None, help="ID del modello (se omesso: casuale)")
+    ap.add_argument("--case", type=str, default=None, help="ID del caso (se omesso: casuale)")
+    ap.add_argument("--seed", type=int, default=None, help="Seed per random (riproducibile)")
+    args = ap.parse_args()
+
+    rng = random.Random(args.seed)
+
+    modelli_path = Path(args.modelli)
+    modelli = load_modelli(modelli_path)
+
+    modello = pick_model(modelli, args.model, rng)
+    caso_id, caso = pick_case(args.case, rng)
+
+    print(render_trace(modello, caso_id, caso))
+
+
+if __name__ == "__main__":
+    main()
