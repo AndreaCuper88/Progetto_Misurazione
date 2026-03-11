@@ -96,18 +96,13 @@ def render_trace(modello: dict[str, Any], caso_id: int, caso: dict[str, Any]) ->
     out.append("% Gli errori sulle grandezze di ingresso sono indipendenti.")
     out.append("%")
     out.append("% Attenzione: rispondere esattamente a tutte le domande di questo quesito è condizione NECESSARIA per superare la prova scritta.")
-    out.append("")
-    out.append("%==============================")
-    out.append("% Dati (il codice NON VA MAI RIPORTATO NELLA SOLUZIONE)")
-    out.append("clear, clc")
-    out.append("%")
-
     # Nota su phi: se esiste phi_deg nei nominali, la evidenzio
     if "phi_deg" in nominali:
         out.append("% Nota: la funzione usa phi in radianti, ma il dato fornito è phi_deg in gradi.")
         out.append("%")
-
-    out.append("% cancellare")
+    out.append("%==============================")
+    out.append("% Dati (il codice NON VA MAI RIPORTATO NELLA SOLUZIONE)")
+    out.append("clear, clc")
 
     # nominali
     for k, v in nominali.items():
@@ -119,7 +114,6 @@ def render_trace(modello: dict[str, Any], caso_id: int, caso: dict[str, Any]) ->
     for k, v in unc.items():
         out.append(f"{k} = {format_value(v)};")
 
-    out.append("% /cancellare")
     out.append("")
     out.append("%==============================")
     out.append("% Domande")
