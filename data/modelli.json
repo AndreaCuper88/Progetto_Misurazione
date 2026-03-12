@@ -111,5 +111,461 @@
       { "ura": 0.006, "urs": 0.012, "uphi_deg": 0.12 }
     ]
   }
+},
+  {
+  "id": "4",
+  "titolo": "Prodotto modulato da arctan dell’angolo",
+  "equazione_testo": "x = x1*x2*atan(phi) (dove phi è in radianti)",
+  "funzione": "x1*x2*atan(phi)",
+
+  "nominali": {
+    "x1": 12,
+    "x2": 4,
+    "phi_deg": 28
+  },
+
+  "sens": {
+    "cx1": "x2*atan(phi)",
+    "cx2": "x1*atan(phi)",
+    "cphi": "(x1*x2)/(1 + phi^2)",
+
+    "crx1": "1",
+    "crx2": "1",
+    "crphi": "phi/(atan(phi)*(phi^2 + 1))"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.2, "Ux2": 0.1, "Uphi_deg": 0.5 }
+    ],
+    "abs_std": [
+      { "ux1": 0.12, "ux2": 0.05, "uphi_deg": 0.3 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.015, "Urx2": 0.02, "Uphi_deg": 0.5 }
+    ],
+    "rel_std": [
+      { "urx1": 0.008, "urx2": 0.01, "uphi_deg": 0.3 }
+    ]
+  }
+},
+  {
+  "id": "5",
+  "titolo": "Calcolo del lato di un triangolo tramite teorema del coseno",
+  "equazione_testo": "x = sqrt(x1^2 + x2^2 - 2*x1*x2*cos(phi)) (dove phi è in radianti)",
+  "funzione": "sqrt(x1^2 + x2^2 - 2*x1*x2*cos(phi))",
+
+  "msg": "Per maggiore chiarezza si specifica che le variabili x1 e x2 rappresentano due lati noti di un triangolo, mentre phi rappresenta l’angolo compreso tra essi.",
+
+  "nominali": {
+    "x1": 8,
+    "x2": 6,
+    "phi_deg": 45
+  },
+
+  "sens": {
+    "cx1": "(x1 - x2*cos(phi))/(x1^2 - 2*cos(phi)*x1*x2 + x2^2)^(1/2)",
+    "cx2": "(x2 - x1*cos(phi))/(x1^2 - 2*cos(phi)*x1*x2 + x2^2)^(1/2)",
+    "cphi": "(x1*x2*sin(phi))/(x1^2 - 2*cos(phi)*x1*x2 + x2^2)^(1/2)",
+
+    "crx1": "(x1*(x1 - x2*cos(phi)))/(x1^2 - 2*cos(phi)*x1*x2 + x2^2)",
+    "crx2": "(x2*(x2 - x1*cos(phi)))/(x1^2 - 2*cos(phi)*x1*x2 + x2^2)",
+    "crphi": "(phi*x1*x2*sin(phi))/(x1^2 - 2*cos(phi)*x1*x2 + x2^2)"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.1, "Ux2": 0.1, "Uphi_deg": 0.5 }
+    ],
+    "abs_std": [
+      { "ux1": 0.05, "ux2": 0.05, "uphi_deg": 0.3 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.02, "Urx2": 0.02, "Uphi_deg": 0.5 }
+    ],
+    "rel_std": [
+      { "urx1": 0.01, "urx2": 0.01, "uphi_deg": 0.3 }
+    ]
+  }
+},
+  {
+  "id": "6",
+  "titolo": "Area di un triangolo da due lati e angolo compreso",
+  "equazione_testo": "A = (1/2)*x1*x2*sin(phi) (dove phi è in radianti)",
+  "funzione": "(1/2)*x1*x2*sin(phi)",
+
+  "msg": "Per maggiore chiarezza si specifica che le variabili x1 e x2 rappresentano due lati noti di un triangolo, mentre phi rappresenta l’angolo compreso tra essi.",
+
+  "nominali": {
+    "x1": 12,
+    "x2": 9,
+    "phi_deg": 40
+  },
+
+  "sens": {
+    "cx1": "(x2*sin(phi))/2",
+    "cx2": "(x1*sin(phi))/2",
+    "cphi": "(x1*x2*cos(phi))/2",
+
+    "crx1": "1",
+    "crx2": "1",
+    "crphi": "(phi*cos(phi))/sin(phi)"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.2, "Ux2": 0.2, "Uphi_deg": 0.5 }
+    ],
+    "abs_std": [
+      { "ux1": 0.1, "ux2": 0.1, "uphi_deg": 0.3 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.02, "Urx2": 0.02, "Uphi_deg": 0.5 }
+    ],
+    "rel_std": [
+      { "urx1": 0.01, "urx2": 0.01, "uphi_deg": 0.3 }
+    ]
+  }
+},
+  {
+  "id": "7",
+  "titolo": "Distanza tramite triangolazione",
+  "equazione_testo": "d = (x1*x2)/(x2 - x1*cos(phi)) (dove phi è in radianti)",
+  "funzione": "(x1*x2)/(x2 - x1*cos(phi))",
+
+  "msg": "Per maggiore chiarezza si specifica che x1 e x2 rappresentano due distanze misurate da due punti di osservazione, mentre phi rappresenta l’angolo tra le due direzioni di misura.",
+
+  "nominali": {
+    "x1": 20,
+    "x2": 35,
+    "phi_deg": 40
+  },
+
+  "sens": {
+    "cx1": "x2^2/(x2 - x1*cos(phi))^2",
+    "cx2": "-(x1^2*cos(phi))/(x2 - x1*cos(phi))^2",
+    "cphi": "-(x1^2*x2*sin(phi))/(x2 - x1*cos(phi))^2",
+
+    "crx1": "x2/(x2 - x1*cos(phi))",
+    "crx2": "-(x1*cos(phi))/(x2 - x1*cos(phi))",
+    "crphi": "-(phi*x1*sin(phi))/(x2 - x1*cos(phi))"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.3, "Ux2": 0.3, "Uphi_deg": 0.4 }
+    ],
+    "abs_std": [
+      { "ux1": 0.15, "ux2": 0.15, "uphi_deg": 0.2 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.02, "Urx2": 0.02, "Uphi_deg": 0.4 }
+    ],
+    "rel_std": [
+      { "urx1": 0.01, "urx2": 0.01, "uphi_deg": 0.2 }
+    ]
+  }
+},
+  {
+  "id": "8",
+  "titolo": "Modulo della somma di due vettori",
+  "equazione_testo": "R = sqrt(x1^2 + x2^2 + 2*x1*x2*cos(phi)) (dove phi è in radianti)",
+  "funzione": "sqrt(x1^2 + x2^2 + 2*x1*x2*cos(phi))",
+
+  "msg": "Per maggiore chiarezza si specifica che x1 e x2 rappresentano i moduli di due vettori, mentre phi rappresenta l’angolo tra i due vettori.",
+
+  "nominali": {
+    "x1": 10,
+    "x2": 7,
+    "phi_deg": 50
+  },
+
+  "sens": {
+    "cx1": "(x1 + x2*cos(phi))/(x1^2 + 2*cos(phi)*x1*x2 + x2^2)^(1/2)",
+    "cx2": "(x2 + x1*cos(phi))/(x1^2 + 2*cos(phi)*x1*x2 + x2^2)^(1/2)",
+    "cphi": "-(x1*x2*sin(phi))/(x1^2 + 2*cos(phi)*x1*x2 + x2^2)^(1/2)",
+
+    "crx1": "(x1*(x1 + x2*cos(phi)))/(x1^2 + 2*cos(phi)*x1*x2 + x2^2)",
+    "crx2": "(x2*(x2 + x1*cos(phi)))/(x1^2 + 2*cos(phi)*x1*x2 + x2^2)",
+    "crphi": "-(phi*x1*x2*sin(phi))/(x1^2 + 2*cos(phi)*x1*x2 + x2^2)"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.2, "Ux2": 0.2, "Uphi_deg": 0.4 }
+    ],
+    "abs_std": [
+      { "ux1": 0.1, "ux2": 0.1, "uphi_deg": 0.2 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.02, "Urx2": 0.02, "Uphi_deg": 0.4 }
+    ],
+    "rel_std": [
+      { "urx1": 0.01, "urx2": 0.01, "uphi_deg": 0.2 }
+    ]
+  }
+},
+  {
+  "id": "9",
+  "titolo": "Altezza corretta con inclinazione",
+  "equazione_testo": "h = x1*tan(phi) + x2 (dove phi è in radianti)",
+  "funzione": "x1*tan(phi) + x2",
+
+  "msg": "Per maggiore chiarezza si specifica che la variabile x1 rappresenta la distanza orizzontale dall’oggetto, x2 rappresenta la quota iniziale (ad esempio l’altezza dello strumento) e phi rappresenta l’angolo di elevazione espresso in radianti.",
+
+  "nominali": {
+    "x1": 20,
+    "x2": 1.5,
+    "phi_deg": 35
+  },
+
+  "sens": {
+    "cx1": "tan(phi)",
+    "cx2": "1",
+    "cphi": "x1*(tan(phi)^2 + 1)",
+
+    "crx1": "(x1*tan(phi))/(x2 + x1*tan(phi))",
+    "crx2": "x2/(x2 + x1*tan(phi))",
+    "crphi": "(phi*x1*(tan(phi)^2 + 1))/(x2 + x1*tan(phi))"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.2, "Ux2": 0.02, "Uphi_deg": 0.4 }
+    ],
+    "abs_std": [
+      { "ux1": 0.1, "ux2": 0.01, "uphi_deg": 0.2 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.01, "Urx2": 0.02, "Uphi_deg": 0.4 }
+    ],
+    "rel_std": [
+      { "urx1": 0.005, "urx2": 0.01, "uphi_deg": 0.2 }
+    ]
+  }
+},
+  {
+  "id": "10",
+  "titolo": "Prodotto con tangente",
+  "equazione_testo": "y = x1*x2*tan(phi) (dove phi è in radianti)",
+  "funzione": "x1*x2*tan(phi)",
+
+  "nominali": {
+    "x1": 4,
+    "x2": 6,
+    "phi_deg": 30
+  },
+
+  "sens": {
+    "cx1": "x2*tan(phi)",
+    "cx2": "x1*tan(phi)",
+    "cphi": "x1*x2*(tan(phi)^2 + 1)",
+
+    "crx1": "1",
+    "crx2": "1",
+    "crphi": "(2*phi)/sin(2*phi)"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.05, "Ux2": 0.05, "Uphi_deg": 0.3 }
+    ],
+    "abs_std": [
+      { "ux1": 0.02, "ux2": 0.02, "uphi_deg": 0.15 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.02, "Urx2": 0.02, "Uphi_deg": 0.3 }
+    ],
+    "rel_std": [
+      { "urx1": 0.01, "urx2": 0.01, "uphi_deg": 0.15 }
+    ]
+  }
+},
+  {
+  "id": "11",
+  "titolo": "Somma con cotangente",
+  "equazione_testo": "y = x1*tan(phi) + x2*cot(phi) (dove phi è in radianti)",
+  "funzione": "x1*tan(phi) + x2*cot(phi)",
+
+  "nominali": {
+    "x1": 5,
+    "x2": 3,
+    "phi_deg": 40
+  },
+
+  "sens": {
+    "cx1": "tan(phi)",
+    "cx2": "cot(phi)",
+    "cphi": "x1*(tan(phi)^2 + 1) - x2*(1/tan(phi)^2 + 1)",
+
+    "crx1": "(x1*tan(phi)^2)/(x1*tan(phi)^2 + x2)",
+    "crx2": "x2/(x1*tan(phi)^2 + x2)",
+    "crphi": "-(phi*(tan(phi)^2 + 1)*(x2 - x1*tan(phi)^2))/(tan(phi)*(x1*tan(phi)^2 + x2))"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.1, "Ux2": 0.1, "Uphi_deg": 0.4 }
+    ],
+    "abs_std": [
+      { "ux1": 0.05, "ux2": 0.05, "uphi_deg": 0.2 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.02, "Urx2": 0.02, "Uphi_deg": 0.4 }
+    ],
+    "rel_std": [
+      { "urx1": 0.01, "urx2": 0.01, "uphi_deg": 0.2 }
+    ]
+  }
+},
+  {
+  "id": "12",
+  "titolo": "Prodotto con cotangente",
+  "equazione_testo": "y = x1*x2*cot(phi) (dove phi è in radianti)",
+  "funzione": "x1*x2*cot(phi)",
+
+  "nominali": {
+    "x1": 4,
+    "x2": 6,
+    "phi_deg": 30
+  },
+
+  "sens": {
+    "cx1": "x2*cot(phi)",
+    "cx2": "x1*cot(phi)",
+    "cphi": "-x1*x2*(cot(phi)^2 + 1)",
+
+    "crx1": "1",
+    "crx2": "1",
+    "crphi": "-(phi*(cot(phi)^2 + 1))/cot(phi)"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.05, "Ux2": 0.05, "Uphi_deg": 0.3 }
+    ],
+    "abs_std": [
+      { "ux1": 0.02, "ux2": 0.02, "uphi_deg": 0.15 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.02, "Urx2": 0.02, "Uphi_deg": 0.3 }
+    ],
+    "rel_std": [
+      { "urx1": 0.01, "urx2": 0.01, "uphi_deg": 0.15 }
+    ]
+  }
+},
+  {
+  "id": "13",
+  "titolo": "Radice con tangente",
+  "equazione_testo": "y = sqrt(x1^2 + x2^2*tan(phi)) (dove phi è in radianti)",
+  "funzione": "sqrt(x1^2 + x2^2*tan(phi))",
+
+  "nominali": {
+    "x1": 5,
+    "x2": 3,
+    "phi_deg": 30
+  },
+
+  "sens": {
+    "cx1": "x1/(x1^2 + tan(phi)*x2^2)^(1/2)",
+    "cx2": "(x2*tan(phi))/(x1^2 + tan(phi)*x2^2)^(1/2)",
+    "cphi": "(x2^2*(tan(phi)^2 + 1))/(2*(x1^2 + tan(phi)*x2^2)^(1/2))",
+
+    "crx1": "x1^2/(x1^2 + tan(phi)*x2^2)",
+    "crx2": "(x2^2*tan(phi))/(x1^2 + tan(phi)*x2^2)",
+    "crphi": "(phi*x2^2*(tan(phi)^2 + 1))/(2*(x1^2 + tan(phi)*x2^2))"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.05, "Ux2": 0.05, "Uphi_deg": 0.3 }
+    ],
+    "abs_std": [
+      { "ux1": 0.02, "ux2": 0.02, "uphi_deg": 0.15 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.01, "Urx2": 0.02, "Uphi_deg": 0.3 }
+    ],
+    "rel_std": [
+      { "urx1": 0.005, "urx2": 0.01, "uphi_deg": 0.15 }
+    ]
+  }
+},
+  {
+  "id": "14",
+  "titolo": "Rapporto con tangente",
+  "equazione_testo": "y = (x1 + x2)/(1 + tan(phi)) (dove phi è in radianti)",
+  "funzione": "(x1 + x2)/(1 + tan(phi))",
+
+  "nominali": {
+    "x1": 4,
+    "x2": 6,
+    "phi_deg": 25
+  },
+
+  "sens": {
+    "cx1": "1/(tan(phi) + 1)",
+    "cx2": "1/(tan(phi) + 1)",
+    "cphi": "-(x1 + x2)/(sin(2*phi) + 1)",
+
+    "crx1": "x1/(x1 + x2)",
+    "crx2": "x2/(x1 + x2)",
+    "crphi": "-(phi*(tan(phi)^2 + 1))/(tan(phi) + 1)"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.05, "Ux2": 0.05, "Uphi_deg": 0.3 }
+    ],
+    "abs_std": [
+      { "ux1": 0.02, "ux2": 0.02, "uphi_deg": 0.15 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.01, "Urx2": 0.01, "Uphi_deg": 0.3 }
+    ],
+    "rel_std": [
+      { "urx1": 0.005, "urx2": 0.005, "uphi_deg": 0.15 }
+    ]
+  }
+},
+  {
+  "id": "15",
+  "titolo": "Angolo corretto di un vettore con offset",
+  "equazione_testo": "theta = phi + atan(x2/x1) (dove phi è in radianti)",
+  "funzione": "phi + atan(x2/x1)",
+
+  "msg": "Per maggiore chiarezza si specifica che x1 rappresenta la componente orizzontale di un vettore, x2 la componente verticale e phi rappresenta un offset angolare o una correzione di allineamento.",
+
+  "nominali": {
+    "x1": 3,
+    "x2": 4,
+    "phi_deg": 10
+  },
+
+  "sens": {
+    "cx1": "-x2/(x1^2 + x2^2)",
+    "cx2": "x1/(x1^2 + x2^2)",
+    "cphi": "1",
+
+    "crx1": "-(x1*x2)/((x1^2 + x2^2)*(phi + atan(x2/x1)))",
+    "crx2": "(x1*x2)/((x1^2 + x2^2)*(phi + atan(x2/x1)))",
+    "crphi": "phi/(phi + atan(x2/x1))"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ux1": 0.05, "Ux2": 0.05, "Uphi_deg": 0.2 }
+    ],
+    "abs_std": [
+      { "ux1": 0.02, "ux2": 0.02, "uphi_deg": 0.1 }
+    ],
+    "rel_wcu": [
+      { "Urx1": 0.01, "Urx2": 0.01, "Uphi_deg": 0.2 }
+    ],
+    "rel_std": [
+      { "urx1": 0.005, "urx2": 0.005, "uphi_deg": 0.1 }
+    ]
+  }
 }
 ]
