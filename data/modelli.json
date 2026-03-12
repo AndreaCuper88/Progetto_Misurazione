@@ -4,6 +4,7 @@
     "titolo": "Espressione di una sinusoide",
     "equazione_testo": "x = cos(2*pi*x1*x2 + phi) (dove phi è in radianti)",
     "funzione": "cos(2*pi*x1*x2 + phi)",
+    "msg": "Per maggiore chiarezza si specifica che la variabile x1 rappresenta la frequenza del segnale, mentre x2 rappresenta il tempo.",
 
     "nominali": {
       "x1": 2,
@@ -32,9 +33,9 @@
         { "Urx1": 0.01, "Urx2": 0.02, "Uphi_deg": 0.63 }
       ],
       "rel_std": [
-        { "urx1": 0.006, "urx2": 0.012, "urphi": 0.019 }
+        { "urx1": 0.006, "urx2": 0.012, "uphi_deg": 0.4 }
       ]
-    }
+  }
   },
 
 {
@@ -70,7 +71,44 @@
       { "Urx1": 0.01, "Urx2": 0.008, "Uphi_deg": 0.5 }
     ],
     "rel_std": [
-      { "urx1": 0.005, "urx2": 0.0004, "urphi": 0.0026 }
+      { "urx1": 0.005, "urx2": 0.0004, "uphi_deg": 0.1 }
+    ]
+  }
+},
+  {
+  "id": "3",
+  "titolo": "Lato di un triangolo ricavato da area, lato e angolo",
+  "equazione_testo": "b = 2*x2 / (x1*sin(phi)) (dove phi è in radianti)",
+  "funzione": "2*x2/(x1*sin(phi))",
+
+  "nominali": {
+    "x1": 10,
+    "x2": 25,
+    "phi_deg": 32
+  },
+
+  "sens": {
+    "cx1": "-(2*x2)/(x1^2*sin(phi))",
+    "cx2": "2/(x1*sin(phi))",
+    "cphi": "(2*x2*cos(phi))/(x1*(cos(phi)^2 - 1))",
+
+    "crx1": "-1",
+    "crx2": "1",
+    "crphi": "-(phi*cos(phi))/sin(phi)"
+  },
+
+  "unc": {
+    "abs_wcu": [
+      { "Ua": 0.01, "Us": 0.02, "Uphi_deg": 0.2 }
+    ],
+    "abs_std": [
+      { "ua": 0.06, "us": 0.29, "uphi_deg": 0.12 }
+    ],
+    "rel_wcu": [
+      { "Ura": 0.01, "Urs": 0.02, "Uphi_deg": 0.2 }
+    ],
+    "rel_std": [
+      { "ura": 0.006, "urs": 0.012, "uphi_deg": 0.12 }
     ]
   }
 }
