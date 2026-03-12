@@ -32,19 +32,81 @@ DOMANDA_LABELS = {
     "urx": "incertezza standard relativa su x",
 }
 
+def read_log(path: Path, last_n: int = 3) -> set[int]:
+
+    if not path.exists():
+        return set()
+
+    rows = path.read_text(encoding="utf-8").splitlines()
+    rows = rows[1:]  # salta header
+
+    valid = []
+
+    for r in rows:
+        if not r.strip():
+            continue
+
+        data, model, case = r.split(",")
+
+        if data != "0":
+            valid.append(int(model))
+
+    return set(valid[-last_n:])
+
+
+def append_log(path: Path, model_id: int, case_id: int):
+
+    line = f"0,{model_id},{case_id}\n"
+
+    with path.open("a", encoding="utf-8") as f:
+        f.write(line)
+
+
+# ===============================
+# Chiedo se utilizzare il log
+# ===============================
+
+while True:
+    ans = input("Usare il file di log? (y/n): ").strip().lower()
+    if ans in ("y", "n"):
+        use_log = (ans == "y")
+        break
+
+
+LOG_PATH = Path("quesito1_log.csv")
+
+if use_log:
+    avoid_models = read_log(LOG_PATH)
+else:
+    avoid_models = set()
+
 
 def load_modelli(path: Path) -> list[dict[str, Any]]:
     return json.loads(path.read_text(encoding="utf-8"))
 
+def path_str(p: Path) -> str:
+    return str(p.as_posix())
 
-def pick_model(modelli: list[dict[str, Any]], model_id: str | None, rng: random.Random) -> dict[str, Any]:
-    if model_id is None:
-        return rng.choice(modelli)
-    for m in modelli:
-        if str(m.get("id")) == str(model_id):
-            return m
-    raise ValueError(f"Modello id={model_id} non trovato in {path_str(DEFAULT_MODELLI_PATH)}")
+def pick_model(
+    modelli: list[dict[str, Any]],
+    model_id: str | None,
+    rng: random.Random,
+    avoid_models: set[int] | None = None
+) -> tuple[int, dict[str, Any]]:
 
+    if model_id is not None:
+        for m in modelli:
+            if str(m.get("id")) == str(model_id):
+                return int(m["id"]), m
+        raise ValueError(f"Modello id={model_id} non trovato in {path_str(DEFAULT_MODELLI_PATH)}")
+
+    # scelta casuale evitando quelli nel log
+    while True:
+        m = rng.choice(modelli)
+        mid = int(m["id"])
+
+        if not avoid_models or mid not in avoid_models:
+            return mid, m
 
 def pick_case(case_id: str | None, rng: random.Random) -> tuple[int, dict[str, Any]]:
     if case_id is None:
@@ -55,9 +117,6 @@ def pick_case(case_id: str | None, rng: random.Random) -> tuple[int, dict[str, A
         raise ValueError(f"Case id={cid} non trovato in CASES")
     return cid, CASES[cid]
 
-
-def path_str(p: Path) -> str:
-    return str(p.as_posix())
 
 
 def format_value(v: Any) -> str:
@@ -210,11 +269,13 @@ def render_trace(modello: dict[str, Any], caso_id: int, caso: dict[str, Any]) ->
 
 
 def main() -> None:
+
     ap = argparse.ArgumentParser(description="Generatore di tracce (solo testo) da modelli.json + casi.py")
-    ap.add_argument("--modelli", type=str, default=str(DEFAULT_MODELLI_PATH), help="Path a modelli.json")
-    ap.add_argument("--model", type=str, default=None, help="ID del modello (se omesso: casuale)")
-    ap.add_argument("--case", type=str, default=None, help="ID del caso (se omesso: casuale)")
-    ap.add_argument("--seed", type=int, default=None, help="Seed per random (riproducibile)")
+    ap.add_argument("--modelli", type=str, default=str(DEFAULT_MODELLI_PATH))
+    ap.add_argument("--model", type=str, default=None)
+    ap.add_argument("--case", type=str, default=None)
+    ap.add_argument("--seed", type=int, default=None)
+
     args = ap.parse_args()
 
     rng = random.Random(args.seed)
@@ -222,10 +283,30 @@ def main() -> None:
     modelli_path = Path(args.modelli)
     modelli = load_modelli(modelli_path)
 
-    modello = pick_model(modelli, args.model, rng)
-    caso_id, caso = pick_case(args.case, rng)
+    # scelta modello
+    model_id, modello = pick_model(modelli, args.model, rng, avoid_models)
 
-    print(render_trace(modello, caso_id, caso))
+    # scelta caso
+    case_id, caso = pick_case(args.case, rng)
+
+    # generazione traccia
+    trace = render_trace(modello, case_id, caso)
+
+    print(trace)
+
+    print(f"\nCombinazione generata: modello={model_id}, caso={case_id}") #Printo la combinazione
+
+    # registrazione log
+    if use_log:
+
+        while True:
+            ans = input("Registrare questa traccia nel log? (y/n): ").strip().lower()
+            if ans in ("y", "n"):
+                break
+
+        if ans == "y":
+            append_log(LOG_PATH, model_id, case_id)
+            print("Traccia registrata nel log.")
 
 
 if __name__ == "__main__":
