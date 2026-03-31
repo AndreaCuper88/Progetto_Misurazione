@@ -107,13 +107,13 @@ Lo script chiede se usare il log, genera una traccia casuale, la stampa a termin
 
 ```bash
 # Generazione completamente casuale
-python genera_traccia.py
+python generatore.py
 
 # Modello 5, caso 3 (Relativo – WCU)
-python genera_traccia.py --model 5 --case 3
+python generatore.py --model 5 --case 3
 
 # Riprodurre esattamente una traccia già generata
-python genera_traccia.py --model 5 --case 3 --seed 42
+python generatore.py --model 5 --case 3 --seed 42
 ```
 
 ---
