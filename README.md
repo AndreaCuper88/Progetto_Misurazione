@@ -10,7 +10,7 @@ Le tracce vengono prodotte combinando casualmente un **modello matematico** (da 
 
 | File | Descrizione |
 |------|-------------|
-| `genera_traccia.py` | Script principale — genera la traccia e la soluzione MATLAB |
+| `generatore.py` | Script principale — genera la traccia e la soluzione MATLAB |
 | `casi.py` | Definisce i 4 casi di propagazione (assoluto/relativo × WCU/standard) |
 | `modelli.json` | Contiene i 15 modelli matematici con nominali, sensibilità e incertezze |
 | `quesito1_log.csv` | File di log (creato automaticamente) per evitare la ripetizione dei modelli |
@@ -89,7 +89,7 @@ Campi principali:
 ### Esecuzione base (interattiva)
 
 ```bash
-python genera_traccia.py
+python generatore.py
 ```
 
 Lo script chiede se usare il log, genera una traccia casuale, la stampa a terminale e infine chiede se registrarla nel log.
@@ -134,7 +134,7 @@ L'output è un testo in formato MATLAB composto da due sezioni:
 Aprire `modelli.json` e aggiungere un oggetto nell'array seguendo la struttura sopra. Fornire obbligatoriamente: `id` univoco, `funzione` MATLAB, `nominali`, tutti e 6 i coefficienti di sensibilità (`cx1`, `cx2`, `cphi`, `crx1`, `crx2`, `crphi`) e le incertezze per tutti e 4 i tipi di input.
 
 ### Aggiungere un nuovo caso
-Aprire `casi.py` e aggiungere una nuova chiave al dizionario `CASES` con ID progressivo. Definire `tipo_input`, `domande` e `soluzione`. Se si introducono nuove variabili, aggiornare anche `DOMANDA_LABELS` in `genera_traccia.py`.
+Aprire `casi.py` e aggiungere una nuova chiave al dizionario `CASES` con ID progressivo. Definire `tipo_input`, `domande` e `soluzione`. Se si introducono nuove variabili, aggiornare anche `DOMANDA_LABELS` in `generatore.py`.
 
 ---
 
