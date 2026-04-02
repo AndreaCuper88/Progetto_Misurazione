@@ -2,7 +2,8 @@
   {
     "id": "1",
     "titolo": "Espressione di una sinusoide",
-    "equazione_testo": "x = cos(2*pi*x1*x2 + phi) (dove phi è in radianti)",
+    "output": "theta",
+    "equazione_testo": "theta = cos(2*pi*x1*x2 + phi) (dove phi è in radianti)",
     "funzione": "cos(2*pi*x1*x2 + phi)",
     "msg": "Per maggiore chiarezza si specifica che la variabile x1 rappresenta la frequenza del segnale, mentre x2 rappresenta il tempo.",
 
@@ -41,7 +42,8 @@
 {
   "id": "2",
   "titolo": "Distanza ricavata da velocità, tempo e angolo",
-  "equazione_testo": "d = x1*x2 / tan(phi) (dove phi è in radianti)",
+  "output": "theta",
+  "equazione_testo": "theta = x1*x2 / tan(phi) (dove phi è in radianti)",
   "funzione": "x1*x2 / tan(phi)",
 
   "nominali": {
@@ -78,7 +80,8 @@
   {
   "id": "3",
   "titolo": "Lato di un triangolo ricavato da area, lato e angolo",
-  "equazione_testo": "b = 2*x2 / (x1*sin(phi)) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = 2*x2 / (x1*sin(phi)) (dove phi è in radianti)",
   "funzione": "2*x2/(x1*sin(phi))",
 
   "nominali": {
@@ -115,7 +118,8 @@
   {
   "id": "4",
   "titolo": "Prodotto modulato da arctan dell’angolo",
-  "equazione_testo": "x = x1*x2*atan(phi) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = x1*x2*atan(phi) (dove phi è in radianti)",
   "funzione": "x1*x2*atan(phi)",
 
   "nominali": {
@@ -152,7 +156,8 @@
   {
   "id": "5",
   "titolo": "Calcolo del lato di un triangolo tramite teorema del coseno",
-  "equazione_testo": "x = sqrt(x1^2 + x2^2 - 2*x1*x2*cos(phi)) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = sqrt(x1^2 + x2^2 - 2*x1*x2*cos(phi)) (dove phi è in radianti)",
   "funzione": "sqrt(x1^2 + x2^2 - 2*x1*x2*cos(phi))",
 
   "msg": "Per maggiore chiarezza si specifica che le variabili x1 e x2 rappresentano due lati noti di un triangolo, mentre phi rappresenta l’angolo compreso tra essi.",
@@ -191,7 +196,8 @@
   {
   "id": "6",
   "titolo": "Area di un triangolo da due lati e angolo compreso",
-  "equazione_testo": "A = (1/2)*x1*x2*sin(phi) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = (1/2)*x1*x2*sin(phi) (dove phi è in radianti)",
   "funzione": "(1/2)*x1*x2*sin(phi)",
 
   "msg": "Per maggiore chiarezza si specifica che le variabili x1 e x2 rappresentano due lati noti di un triangolo, mentre phi rappresenta l’angolo compreso tra essi.",
@@ -230,7 +236,8 @@
   {
   "id": "7",
   "titolo": "Distanza tramite triangolazione",
-  "equazione_testo": "d = (x1*x2)/(x2 - x1*cos(phi)) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = (x1*x2)/(x2 - x1*cos(phi)) (dove phi è in radianti)",
   "funzione": "(x1*x2)/(x2 - x1*cos(phi))",
 
   "msg": "Per maggiore chiarezza si specifica che x1 e x2 rappresentano due distanze misurate da due punti di osservazione, mentre phi rappresenta l’angolo tra le due direzioni di misura.",
@@ -269,7 +276,8 @@
   {
   "id": "8",
   "titolo": "Modulo della somma di due vettori",
-  "equazione_testo": "R = sqrt(x1^2 + x2^2 + 2*x1*x2*cos(phi)) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = sqrt(x1^2 + x2^2 + 2*x1*x2*cos(phi)) (dove phi è in radianti)",
   "funzione": "sqrt(x1^2 + x2^2 + 2*x1*x2*cos(phi))",
 
   "msg": "Per maggiore chiarezza si specifica che x1 e x2 rappresentano i moduli di due vettori, mentre phi rappresenta l’angolo tra i due vettori.",
@@ -308,7 +316,8 @@
   {
   "id": "9",
   "titolo": "Altezza corretta con inclinazione",
-  "equazione_testo": "h = x1*tan(phi) + x2 (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = x1*tan(phi) + x2 (dove phi è in radianti)",
   "funzione": "x1*tan(phi) + x2",
 
   "msg": "Per maggiore chiarezza si specifica che la variabile x1 rappresenta la distanza orizzontale dall’oggetto, x2 rappresenta la quota iniziale (ad esempio l’altezza dello strumento) e phi rappresenta l’angolo di elevazione espresso in radianti.",
@@ -347,7 +356,8 @@
   {
   "id": "10",
   "titolo": "Prodotto con tangente",
-  "equazione_testo": "y = x1*x2*tan(phi) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = x1*x2*tan(phi) (dove phi è in radianti)",
   "funzione": "x1*x2*tan(phi)",
 
   "nominali": {
@@ -384,7 +394,8 @@
   {
   "id": "11",
   "titolo": "Somma con cotangente",
-  "equazione_testo": "y = x1*tan(phi) + x2*cot(phi) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = x1*tan(phi) + x2*cot(phi) (dove phi è in radianti)",
   "funzione": "x1*tan(phi) + x2*cot(phi)",
 
   "nominali": {
@@ -421,7 +432,8 @@
   {
   "id": "12",
   "titolo": "Prodotto con cotangente",
-  "equazione_testo": "y = x1*x2*cot(phi) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = x1*x2*cot(phi) (dove phi è in radianti)",
   "funzione": "x1*x2*cot(phi)",
 
   "nominali": {
@@ -458,7 +470,8 @@
   {
   "id": "13",
   "titolo": "Radice con tangente",
-  "equazione_testo": "y = sqrt(x1^2 + x2^2*tan(phi)) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = sqrt(x1^2 + x2^2*tan(phi)) (dove phi è in radianti)",
   "funzione": "sqrt(x1^2 + x2^2*tan(phi))",
 
   "nominali": {
@@ -495,7 +508,8 @@
   {
   "id": "14",
   "titolo": "Rapporto con tangente",
-  "equazione_testo": "y = (x1 + x2)/(1 + tan(phi)) (dove phi è in radianti)",
+    "output": "theta",
+  "equazione_testo": "theta = (x1 + x2)/(1 + tan(phi)) (dove phi è in radianti)",
   "funzione": "(x1 + x2)/(1 + tan(phi))",
 
   "nominali": {
@@ -532,6 +546,7 @@
   {
   "id": "15",
   "titolo": "Angolo corretto di un vettore con offset",
+    "output": "theta",
   "equazione_testo": "theta = phi + atan(x2/x1) (dove phi è in radianti)",
   "funzione": "phi + atan(x2/x1)",
 

@@ -3,6 +3,11 @@ CASES = {
         "nome": "Assoluto - WCU",
         "tipo_input": "abs_wcu", #incertezze assolute di caso peggiore
         "tipo_propagazione": "wcu",
+        "tipo_input_testuale": {
+            "Ux1":      "incertezza di caso peggiore assoluta su x1",
+            "Ux2":      "incertezza di caso peggiore assoluta su x2",
+            "Uphi_deg": "incertezza di caso peggiore assoluta su phi (in gradi)",
+        },
         "domande": [
             "cx1",
             "cx2",
@@ -12,17 +17,17 @@ CASES = {
             "crphi"
         ],
         "soluzione": {
-            "Ux": {
+            "Utheta": {
                 "msg": "% Incertezza di caso peggiore assoluta",
                 "formula": "abs(cx1)*Ux1 + abs(cx2)*Ux2 + abs(cphi)*Uphi"
             },
-            "Urx": {
+            "Urtheta": {
                 "msg": "% Incertezza di caso peggiore relativa",
-                "formula": "Ux/abs(x)"
+                "formula": "Utheta/abs(theta)"
             },
-            "ux": {
+            "utheta": {
                 "msg": "% Incertezza standard assoluta",
-                "formula": "Ux/sqrt(3)"
+                "formula": "Utheta/sqrt(3)"
             }
         }
     },
@@ -31,6 +36,11 @@ CASES = {
         "nome": "Assoluto - Standard",
         "tipo_input": "abs_std",    #incertezze assolute standard
         "tipo_propagazione": "std",
+        "tipo_input_testuale": {
+            "ux1":      "incertezza standard assoluta su x1",
+            "ux2":      "incertezza standard assoluta su x2",
+            "uphi_deg": "incertezza standard assoluta su phi (in gradi)",
+        },
         "domande": [
             "cx1",
             "cx2",
@@ -40,17 +50,17 @@ CASES = {
             "crphi"
         ],
         "soluzione": {
-            "ux": {
+            "utheta": {
                 "msg": "% Incertezza standard assoluta",
                 "formula": "sqrt((cx1*ux1)^2 + (cx2*ux2)^2 + (cphi*uphi)^2)"
             },
-            "Ux": {
+            "Utheta": {
                 "msg": "% Incertezza di caso peggiore assoluta",
-                "formula": "sqrt(3)*ux"
+                "formula": "sqrt(3)*utheta"
             },
-            "Urx": {
+            "Urtheta": {
                 "msg": "% Incertezza di caso peggiore relativa",
-                "formula": "Ux/abs(x)"
+                "formula": "Utheta/abs(theta)"
             }
         }
     },
@@ -59,6 +69,11 @@ CASES = {
         "nome": "Relativo - WCU",
         "tipo_input": "rel_wcu",    #incertezze relative di caso peggiore
         "tipo_propagazione": "wcu",
+        "tipo_input_testuale": {
+            "Urx1":     "incertezza di caso peggiore relativa su x1",
+            "Urx2":     "incertezza di caso peggiore relativa su x2",
+            "Uphi_deg": "incertezza di caso peggiore assoluta su phi (in gradi)",
+        },
         "domande": [
             "crx1",
             "crx2",
@@ -68,17 +83,17 @@ CASES = {
             "cphi"
         ],
         "soluzione": {
-            "Urx": {
+            "Urtheta": {
                 "msg": "% Incertezza di caso peggiore relativa",
                 "formula": "abs(crx1)*Urx1 + abs(crx2)*Urx2 + abs(crphi)*Urphi"
             },
-            "Ux": {
+            "Utheta": {
                 "msg": "% Incertezza di caso peggiore assoluta",
-                "formula": "Urx*abs(x)"
+                "formula": "Urtheta*abs(theta)"
             },
-            "urx": {
+            "urtheta": {
                 "msg": "% Incertezza standard relativa",
-                "formula": "Urx/sqrt(3)"
+                "formula": "Urtheta/sqrt(3)"
             }
         }
     },
@@ -87,6 +102,11 @@ CASES = {
         "nome": "Relativo - Standard",
         "tipo_input": "rel_std",    #incertezze relative standard
         "tipo_propagazione": "std",
+        "tipo_input_testuale": {
+            "urx1":     "incertezza standard relativa su x1",
+            "urx2":     "incertezza standard relativa su x2",
+            "uphi_deg": "incertezza standard assoluta su phi (in gradi)",
+        },
         "domande": [
             "crx1",
             "crx2",
@@ -96,17 +116,17 @@ CASES = {
             "cphi"
         ],
         "soluzione": {
-            "urx": {
+            "urtheta": {
                 "msg": "% Incertezza standard relativa",
                 "formula": "sqrt((crx1*urx1)^2 + (crx2*urx2)^2 + (crphi*urphi)^2)"
             },
-            "Urx": {
+            "Urtheta": {
                 "msg": "% Incertezza di caso peggiore relativa",
-                "formula": "sqrt(3)*urx"
+                "formula": "sqrt(3)*urtheta"
             },
-            "Ux": {
+            "Utheta": {
                 "msg": "% Incertezza di caso peggiore assoluta",
-                "formula": "Urx*abs(x)"
+                "formula": "Urtheta*abs(theta)"
             }
         }
     }

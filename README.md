@@ -43,8 +43,9 @@ Array di 15 modelli. Struttura di ogni voce:
 {
   "id": "2",
   "titolo": "Distanza ricavata da velocità, tempo e angolo",
-  "equazione_testo": "d = x1*x2 / tan(phi)",
+  "equazione_testo": "theta = x1*x2 / tan(phi) (dove phi è in radianti)",
   "funzione": "x1*x2 / tan(phi)",
+  "output": "theta",
   "nominali": { "x1": 100, "x2": 25, "phi_deg": 38 },
   "sens": {
     "cx1": "x2/tan(phi)",
@@ -65,6 +66,7 @@ Array di 15 modelli. Struttura di ogni voce:
 
 Campi principali:
 - `id / titolo / equazione_testo / funzione` — identificazione e descrizione della formula
+- `output` — nome della variabile di uscita usato nella traccia e nella soluzione (es. `"theta"`)
 - `msg` *(opzionale)* — nota esplicativa aggiuntiva per lo studente
 - `nominali` — valori numerici delle variabili (`x1`, `x2`, `phi_deg`)
 - `sens` — formule simboliche dei coefficienti di sensibilità assoluti (`cx*`) e relativi (`cr*`)
@@ -72,7 +74,7 @@ Campi principali:
 
 ---
 
-### `genera_traccia.py` — Script principale
+### `generatore.py` — Script principale
 
 | Funzione | Descrizione |
 |----------|-------------|
@@ -98,7 +100,8 @@ Lo script chiede se usare il log, genera una traccia casuale, la stampa a termin
 
 | Opzione | Esempio | Descrizione |
 |---------|---------|-------------|
-| `--model ID` | `--model 3` | Forza la selezione del modello con quell'ID |
+| `-h, --help` | `--help` | Mostra il messaggio di aiuto con la descrizione di tutti gli argomenti ed esce |
+| `--model ID` | `--model 3` | Forza la selezione del modello con quell'ID (1–15) |
 | `--case ID` | `--case 2` | Forza la selezione del caso (1–4) |
 | `--seed N` | `--seed 42` | Fissa il seme casuale per riproducibilità |
 | `--modelli PATH` | `--modelli data/modelli.json` | Percorso alternativo al file JSON |
@@ -106,6 +109,9 @@ Lo script chiede se usare il log, genera una traccia casuale, la stampa a termin
 ### Esempi
 
 ```bash
+# Visualizzare l'aiuto
+python generatore.py --help
+
 # Generazione completamente casuale
 python generatore.py
 
@@ -131,7 +137,7 @@ L'output è un testo in formato MATLAB composto da due sezioni:
 ## Come estendere il progetto
 
 ### Aggiungere un nuovo modello
-Aprire `modelli.json` e aggiungere un oggetto nell'array seguendo la struttura sopra. Fornire obbligatoriamente: `id` univoco, `funzione` MATLAB, `nominali`, tutti e 6 i coefficienti di sensibilità (`cx1`, `cx2`, `cphi`, `crx1`, `crx2`, `crphi`) e le incertezze per tutti e 4 i tipi di input.
+Aprire `modelli.json` e aggiungere un oggetto nell'array seguendo la struttura sopra. Fornire obbligatoriamente: `id` univoco, `funzione` MATLAB, `output`, `nominali`, tutti e 6 i coefficienti di sensibilità (`cx1`, `cx2`, `cphi`, `crx1`, `crx2`, `crphi`) e le incertezze per tutti e 4 i tipi di input.
 
 ### Aggiungere un nuovo caso
 Aprire `casi.py` e aggiungere una nuova chiave al dizionario `CASES` con ID progressivo. Definire `tipo_input`, `domande` e `soluzione`. Se si introducono nuove variabili, aggiornare anche `DOMANDA_LABELS` in `generatore.py`.
