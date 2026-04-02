@@ -393,7 +393,7 @@
 },
   {
   "id": "11",
-  "titolo": "Somma con cotangente",
+  "titolo": "Combinazione lineare di tan(phi) e cot(phi)",
     "output": "theta",
   "equazione_testo": "theta = x1*tan(phi) + x2*cot(phi) (dove phi è in radianti)",
   "funzione": "x1*tan(phi) + x2*cot(phi)",

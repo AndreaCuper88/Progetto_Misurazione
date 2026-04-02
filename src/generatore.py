@@ -24,12 +24,12 @@ DOMANDA_LABELS = {
     "crphi": "coefficiente relativo di sensibilità di {out} rispetto a phi",
 
     # incertezze WCU
-    "Ux": "incertezza di caso peggiore assoluta su {out}",
-    "Urx": "incertezza di caso peggiore relativa su {out}",
+    "Utheta": "incertezza di caso peggiore assoluta su {out}",
+    "Urtheta": "incertezza di caso peggiore relativa su {out}",
 
     # incertezze standard
-    "ux": "incertezza standard assoluta su {out}",
-    "urx": "incertezza standard relativa su {out}",
+    "utheta": "incertezza standard assoluta su {out}",
+    "urtheta": "incertezza standard relativa su {out}",
 }
 
 def read_log(path: Path, last_n: int = 3) -> set[int]:
@@ -180,12 +180,12 @@ def render_trace(modello: dict[str, Any], caso_id: int, caso: dict[str, Any]) ->
     out.append("%% Soluzione")
     out.append("clc")
     out.append("% Conversione da gradi a radianti")
-    out.append("phi = phi_deg/180*pi;")
+    out.append("phi = phi_deg/180*pi")
     if "Uphi_deg" in unc:
-        out.append("Uphi = Uphi_deg/180*pi;")
+        out.append("Uphi = Uphi_deg/180*pi")
 
     if "uphi_deg" in unc:
-        out.append("uphi = uphi_deg/180*pi;")
+        out.append("uphi = uphi_deg/180*pi")
 
     out.append("")
 
@@ -193,23 +193,23 @@ def render_trace(modello: dict[str, Any], caso_id: int, caso: dict[str, Any]) ->
     if any(d.startswith("cx") for d in domande):
         if "cx1" in sens:
             out.append("% Coefficienti di sensibilità assoluti")
-            out.append(f"cx1 = {sens['cx1']};")
+            out.append(f"cx1 = {sens['cx1']}")
         if "cx2" in sens:
-            out.append(f"cx2 = {sens['cx2']};")
+            out.append(f"cx2 = {sens['cx2']}")
 
     elif any(d.startswith("cr") for d in domande):
         if "crx1" in sens:
             out.append("% Coefficienti di sensibilità relativi")
-            out.append(f"crx1 = {sens['crx1']};")
+            out.append(f"crx1 = {sens['crx1']}")
         if "crx2" in sens:
-            out.append(f"crx2 = {sens['crx2']};")
+            out.append(f"crx2 = {sens['crx2']}")
 
     # stampa coefficiente dell'angolo, serve per i calcoli
     if any(d.startswith("cx") for d in domande) and "cphi" in sens:
-        out.append(f"cphi = {sens['cphi']};")
+        out.append(f"cphi = {sens['cphi']}")
 
     elif any(d.startswith("cr") for d in domande) and "crphi" in sens:
-        out.append(f"crphi = {sens['crphi']};")
+        out.append(f"crphi = {sens['crphi']}")
 
     out.append("")
 
@@ -220,23 +220,32 @@ def render_trace(modello: dict[str, Any], caso_id: int, caso: dict[str, Any]) ->
 
     for var, data in sol.items():
 
+        if var.startswith("_"):  # voci interne, non variabili MATLAB
+            continue
+
         msg = data["msg"]
         formula = data["formula"]
 
         out.append(msg)
+
+        # righe preparatorie opzionali (es. conversione std → WCU)
+        for pre_line in data.get("pre", []):
+            out.append(pre_line)
+
         formula = formula.replace("abs(x)", f"abs({out_var})")
         if f"abs({out_var})" in formula:
-            out.append(f"{out_var} = {funzione};")
+            out.append(f"{out_var} = {funzione}")
 
         # serve Urphi se compare nella formula
-        if "Urphi" in formula:
-            out.append("Urphi = Uphi/abs(phi);")
+        pre_lines = data.get("pre", [])
+        if "Urphi" in formula and not any("Urphi" in p for p in pre_lines):
+            out.append("Urphi = Uphi/abs(phi)")
 
         # serve urphi se compare nella formula
-        if "urphi" in formula:
-            out.append("urphi = uphi/abs(phi);")
+        if "urphi" in formula and not any("urphi" in p for p in pre_lines):
+            out.append("urphi = uphi/abs(phi)")
 
-        out.append(f"{var} = {formula};")
+        out.append(f"{var} = {formula}")
         out.append("")
 
     d_last = domande[-1]
@@ -248,7 +257,7 @@ def render_trace(modello: dict[str, Any], caso_id: int, caso: dict[str, Any]) ->
         else:
             out.append("% Coefficiente di sensibilità assoluto")
 
-        out.append(f"{d_last} = {sens[d_last]};")
+        out.append(f"{d_last} = {sens[d_last]}")
         out.append("")
 
 
