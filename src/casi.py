@@ -31,7 +31,7 @@ CASES = {
                     "ux1 = Ux1/sqrt(3)",
                     "ux2 = Ux2/sqrt(3)",
                     "uphi = Uphi/sqrt(3)",
-                    "% Incertezza standard assoluta"
+                    "% Incertezza standard assoluta"    #Commento per la formula successiva
                 ],
                 "formula": "sqrt((cx1*ux1)^2 + (cx2*ux2)^2 + (cphi*uphi)^2)"
             }
@@ -66,7 +66,7 @@ CASES = {
                     "Ux1 = sqrt(3)*ux1",
                     "Ux2 = sqrt(3)*ux2",
                     "Uphi = sqrt(3)*uphi",
-                    "% Incertezza di caso peggiore assoluta"
+                    "% Incertezza di caso peggiore assoluta"    #Commento per la formula successiva
                 ],
                 "formula": "abs(cx1)*Ux1 + abs(cx2)*Ux2 + abs(cphi)*Uphi"
             },
@@ -109,7 +109,7 @@ CASES = {
                     "urx1 = Urx1/sqrt(3)",
                     "urx2 = Urx2/sqrt(3)",
                     "urphi = Urphi/sqrt(3)",
-                    "% Incertezza standard relativa"
+                    "% Incertezza standard relativa"    #Commento per la formula successiva
                 ],
                 "formula": "sqrt((crx1*urx1)^2 + (crx2*urx2)^2 + (crphi*urphi)^2)"
             }
